@@ -3,22 +3,32 @@
   "info": {
     "title": "Zen Planner API",
     "description": "Provides task data to users",
-    "version": "0.0.1"
+    "version": "0.1.0"
   },
   "servers": [],
   "paths": {
-    "/tasks": {
-      "post": {
+    "/:user_id/tasks/get": {
+      "get": {
         "description": "Return list of tasks for user",
         "responses": {
           "200": {
-            "description": "Paginated list of tasks",
+            "description": "Paginated list of tasks"
+          }
+        }
+      }
+    },
+    "/:user_id/tasks/add": {
+      "post": {
+        "description": "Add list of tasks for user",
+        "responses": {
+          "200": {
+            "description": "Status of task creation",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/task"
+                    "$ref": "(array of) #/components/task"
                   }
                 }
               }
