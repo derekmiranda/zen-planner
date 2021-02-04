@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Zen Planner API",
+    "description": "Provides task data to users",
+    "version": "0.0.1"
+  },
+  "servers": [],
+  "paths": {
+    "/tasks": {
+      "post": {
+        "description": "Return list of tasks for user",
+        "requestBody": {
+          "description": "Get paginated list of tasks by user and any filters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": "string",
+                  "cursor": ["string", "null"]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Paginated list of tasks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/task"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
