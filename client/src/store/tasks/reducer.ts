@@ -5,7 +5,7 @@ function tasksReducer(state = {}, action: TasksActionTypes) {
     case ADD_TASK:
       return {
         ...state,
-        task: action.task,
+        [action.task.id]: action.task,
       };
     default:
       return state;

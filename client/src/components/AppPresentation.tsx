@@ -1,13 +1,17 @@
-import { FC } from "react";
-
 import "../App.css";
-import { TaskMap } from "../types";
+import { Task, TaskMap } from "../types";
 
-export interface AppProps {
+export interface AppStateProps {
   tasks: TaskMap;
 }
 
-const AppPresentation: FC<AppProps> = ({ tasks }: AppProps) => {
+export interface AppDispatchProps {
+  onAddTask: (task: Task) => void;
+}
+
+type AppProps = AppStateProps & AppDispatchProps;
+
+const AppPresentation = ({ tasks }: AppProps) => {
   const Tasks = Object.values(tasks).map((task, i) => (
     <div key={i}>{task.description}</div>
   ));

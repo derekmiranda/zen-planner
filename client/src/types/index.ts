@@ -1,7 +1,8 @@
-import { TasksActionTypes } from "./store/tasks/types";
+import { TasksActionTypes } from "../store/tasks/types";
 
 export interface Task {
   description: string;
+  id: number;
 }
 
 export interface TaskMap {
