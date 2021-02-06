@@ -1,43 +1,26 @@
-import { Component } from "react";
-import "./App.css";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 
-import { Task } from "./types";
+import AppPresentation from "./components/AppPresentation";
+import { ADD_TASK } from "./store/tasks/types";
+import { Task, AppState, AppAction } from "./types";
 
-const DEFAULT_USER_ID = 1;
+// redux
+const mapStateToProps = ({ tasks }: AppState) => ({
+  tasks,
+});
 
-interface AppState {
-  tasks: Task[];
-}
+const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
+  onAddTask: (task: Task) =>
+    dispatch({
+      type: ADD_TASK,
+      task,
+    }),
+});
 
-class App extends Component<{}, AppState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      tasks: [],
-    };
-  }
+const ConnectedApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppPresentation);
 
-  async componentDidMount() {
-    const res = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/${DEFAULT_USER_ID}/tasks/get`
-    );
-    const json = await res.json();
-    this.setState({
-      tasks: json.tasks,
-    });
-  }
-
-  render() {
-    const Tasks = this.state.tasks.map((task, i) => (
-      <div key={i}>{task.description}</div>
-    ));
-    return (
-      <div className="app">
-        <h1 className="app__header">Zen Planner</h1>
-        {Tasks}
-      </div>
-    );
-  }
-}
-
-export default App;
+export default ConnectedApp;

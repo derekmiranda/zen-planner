@@ -28,17 +28,23 @@ export default function runMockServer() {
         let userId = request.params.user_id;
         let user = schema.users.find(userId);
 
-        return user.tasks;
+        return {
+          data: user.tasks.models,
+        };
       });
 
       this.post("/:user_id/tasks/add", (schema, request) => {
         const body = JSON.parse(request.requestBody);
         const user = schema.users.find(request.params.user_id);
 
-        return schema.tasks.create({
+        const newTask = schema.tasks.create({
           ...body,
           user,
         });
+
+        return {
+          data: newTask,
+        };
       });
     },
   });

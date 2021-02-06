@@ -1,5 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+
+import store from "./store";
 import "./index.css";
 import App from "./App.tsx";
 import reportWebVitals from "./reportWebVitals";
@@ -9,7 +12,9 @@ runMockServer();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
