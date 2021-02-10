@@ -1,15 +1,20 @@
 import { connect } from "react-redux";
 
 import AppPresentation from "./components/AppPresentation";
-import { addTask } from "./store/tasks/actions";
-import { AppState } from "./types";
+import { ADD_TASK } from "./store/tasks/types";
+import { AppState, Task } from "./types";
 
 const mapStateToProps = ({ tasks }: AppState) => ({
   tasks,
 });
 
 const mapDispatchToProps = {
-  onAddTask: addTask,
+  onAddTask: (task: Task) => {
+    return {
+      type: ADD_TASK,
+      task,
+    };
+  },
 };
 
 const ConnectedApp = connect<{}, {}, typeof AppPresentation, AppState>(
