@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Task, TaskMap } from "../types";
+import EmptyTask from "./EmptyTask";
 import TaskEl from "./TaskEl";
 
 export interface AppStateProps {
@@ -26,6 +27,21 @@ const AppPresentation = ({ tasks, onToggleComplete }: AppProps) => {
       otherTasks.push(taskEl);
     }
   });
+
+  // fill up big tasks with empty tasks
+  if (bigTasks.length < 3) {
+    const numEmptyTasks = 3 - bigTasks.length;
+    for (let i = 0; i < numEmptyTasks; i++) {
+      const orderId = bigTasks.length + i;
+      bigTasks.push(
+        <EmptyTask
+          key={orderId}
+          orderId={orderId}
+          isPlaceholder={orderId === 0}
+        />
+      );
+    }
+  }
 
   const hasOtherTasks = !!otherTasks.length;
 

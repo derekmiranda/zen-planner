@@ -3,6 +3,17 @@
     display: flex;
   }
 
+  &__description,
+  &__description-input {
+    width: 300px;
+  }
+
+  &__description {
+    &--placeholder {
+      color: $grey2;
+    }
+  }
+
   &__completion-indicator {
     user-select: none;
   }

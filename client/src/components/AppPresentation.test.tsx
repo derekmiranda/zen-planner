@@ -32,6 +32,12 @@ test("renders Daily Big 3 header", () => {
   expect(linkElement).toBeInTheDocument();
 });
 
+test("renders prompt to add task", () => {
+  render(<AppPresentation {...defaultProps} />);
+  const linkElement = screen.getByText("Add a big task to finish today");
+  expect(linkElement).toBeInTheDocument();
+});
+
 test("doesn't render Other Tasks header if no other tasks present", () => {
   render(<AppPresentation {...defaultProps} />);
   const headerExists = screen.queryByText("Other Tasks");
