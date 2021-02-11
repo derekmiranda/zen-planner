@@ -13,7 +13,11 @@ export interface TaskDispatchProps {
 
 type TaskProps = TaskStateProps & TaskDispatchProps;
 
-const PLACEHOLDER = "Add a big task to finish today";
+const PLACEHOLDERS = [
+  "Add a big task to finish today",
+  "Add a second big task",
+  "Add a third big task",
+];
 
 function Description({
   description,
@@ -30,7 +34,7 @@ function Description({
   }
   return (
     <div className={descriptionClass} onClick={onClick}>
-      {isPlaceholder ? PLACEHOLDER : description}
+      {isPlaceholder ? PLACEHOLDERS[0] : description}
     </div>
   );
 }
