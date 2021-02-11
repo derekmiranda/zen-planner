@@ -1,0 +1,16 @@
+.task {
+  &__container {
+    display: flex;
+  }
+
+  &__completion-indicator {
+    user-select: none;
+  }
+}
+
+.modify {
+  &__container {
+    background-color: $grey1;
+    display: flex;
+  }
+}
