@@ -4,7 +4,7 @@ import { Task } from "../types";
 export interface TaskStateProps {
   task: Task;
   hideModifyModule?: boolean;
-  isPlaceholder?: boolean;
+  placeholder?: string;
 }
 
 export interface TaskDispatchProps {
@@ -13,28 +13,22 @@ export interface TaskDispatchProps {
 
 type TaskProps = TaskStateProps & TaskDispatchProps;
 
-const PLACEHOLDERS = [
-  "Add a big task to finish today",
-  "Add a second big task",
-  "Add a third big task",
-];
-
 function Description({
   description,
-  isPlaceholder,
   onClick,
+  placeholder,
 }: {
   description: string;
-  isPlaceholder: boolean;
   onClick: () => void;
+  placeholder?: string;
 }) {
   let descriptionClass = "task__description";
-  if (isPlaceholder) {
+  if (placeholder) {
     descriptionClass += " task__description--placeholder";
   }
   return (
     <div className={descriptionClass} onClick={onClick}>
-      {isPlaceholder ? PLACEHOLDERS[0] : description}
+      {placeholder || description}
     </div>
   );
 }
@@ -65,7 +59,7 @@ function TaskEl({
   task,
   onToggleComplete,
   hideModifyModule = false,
-  isPlaceholder = false,
+  placeholder = "",
 }: TaskProps) {
   const { description, completed, id } = task;
   const toggleCompleteHandler = () => onToggleComplete(id);
@@ -94,7 +88,7 @@ function TaskEl({
       ) : (
         <Description
           description={description}
-          isPlaceholder={isPlaceholder}
+          placeholder={placeholder}
           onClick={startEditing}
         />
       )}

@@ -3,10 +3,10 @@ import TaskEl from "./TaskEl";
 
 interface EmptyTaskProps {
   orderId: number;
-  isPlaceholder?: boolean;
+  placeholder: string;
 }
 
-function EmptyTask({ orderId, isPlaceholder }: EmptyTaskProps) {
+function EmptyTask({ orderId, placeholder }: EmptyTaskProps) {
   const task: Task = {
     description: "",
     id: orderId,
@@ -20,7 +20,7 @@ function EmptyTask({ orderId, isPlaceholder }: EmptyTaskProps) {
     <TaskEl
       task={task}
       onToggleComplete={() => {}}
-      isPlaceholder={isPlaceholder}
+      placeholder={placeholder}
       hideModifyModule={true}
     />
   );

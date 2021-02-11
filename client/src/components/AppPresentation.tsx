@@ -3,6 +3,12 @@ import { Task, TaskMap } from "../types";
 import EmptyTask from "./EmptyTask";
 import TaskEl from "./TaskEl";
 
+const PLACEHOLDERS = [
+  "Add a big task to finish today",
+  "Add a second big task",
+  "Add a third big task",
+];
+
 export interface AppStateProps {
   tasks: TaskMap;
 }
@@ -33,12 +39,9 @@ const AppPresentation = ({ tasks, onToggleComplete }: AppProps) => {
     const numEmptyTasks = 3 - bigTasks.length;
     for (let i = 0; i < numEmptyTasks; i++) {
       const orderId = bigTasks.length + i;
+      const placeholder = i === 0 ? PLACEHOLDERS[orderId] : "";
       bigTasks.push(
-        <EmptyTask
-          key={orderId}
-          orderId={orderId}
-          isPlaceholder={orderId === 0}
-        />
+        <EmptyTask key={orderId} orderId={orderId} placeholder={placeholder} />
       );
     }
   }
