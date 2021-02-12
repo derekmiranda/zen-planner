@@ -1,3 +1,5 @@
+import omit from "lodash/omit";
+import { createUuid } from "../../lib/utils";
 import tasksReducer from "./reducer";
 import {
   ADD_TASK,
@@ -7,9 +9,15 @@ import {
   REORDER_TASKS,
 } from "./types";
 
+jest.mock("../../lib/utils");
+
 const NOW = 1612919020297;
+const UUID = createUuid();
+
+const EXTRA_UUIDS = ["2", "3"];
 const DEFAULT_TASK = {
   id: 1,
+  uuid: UUID,
   description: "Test task",
   completed: false,
   isBig: true,
@@ -28,11 +36,11 @@ test("can add a task", () => {
       {},
       {
         type: ADD_TASK,
-        task: DEFAULT_TASK,
+        task: omit(DEFAULT_TASK, "id", "focused", "uuid", "orderId"),
       }
     )
   ).toStrictEqual({
-    "1": DEFAULT_TASK,
+    [UUID]: omit(DEFAULT_TASK, "id"),
   });
 });
 
@@ -40,11 +48,11 @@ test("can remove a task", () => {
   expect(
     tasksReducer(
       {
-        "1": DEFAULT_TASK,
+        [UUID]: DEFAULT_TASK,
       },
       {
         type: REMOVE_TASK,
-        taskId: 1,
+        uuid: UUID,
       }
     )
   ).toStrictEqual({});
@@ -54,15 +62,15 @@ test("can complete a task", () => {
   expect(
     tasksReducer(
       {
-        "1": DEFAULT_TASK,
+        [UUID]: DEFAULT_TASK,
       },
       {
         type: COMPLETE_TASK_TOGGLE,
-        taskId: 1,
+        uuid: UUID,
       }
     )
   ).toStrictEqual({
-    "1": {
+    [UUID]: {
       ...DEFAULT_TASK,
       completed: true,
     },
@@ -73,18 +81,18 @@ test("can uncomplete a task", () => {
   expect(
     tasksReducer(
       {
-        "1": {
+        [UUID]: {
           ...DEFAULT_TASK,
           completed: true,
         },
       },
       {
         type: COMPLETE_TASK_TOGGLE,
-        taskId: 1,
+        uuid: UUID,
       }
     )
   ).toStrictEqual({
-    "1": DEFAULT_TASK,
+    [UUID]: DEFAULT_TASK,
   });
 });
 
@@ -92,15 +100,15 @@ test("can focus a task", () => {
   expect(
     tasksReducer(
       {
-        "1": DEFAULT_TASK,
+        [UUID]: DEFAULT_TASK,
       },
       {
         type: FOCUS_TASK_TOGGLE,
-        taskId: 1,
+        uuid: UUID,
       }
     )
   ).toStrictEqual({
-    "1": {
+    [UUID]: {
       ...DEFAULT_TASK,
       focused: true,
     },
@@ -111,18 +119,18 @@ test("can unfocus a task", () => {
   expect(
     tasksReducer(
       {
-        "1": {
+        [UUID]: {
           ...DEFAULT_TASK,
           focused: true,
         },
       },
       {
         type: FOCUS_TASK_TOGGLE,
-        taskId: 1,
+        uuid: UUID,
       }
     )
   ).toStrictEqual({
-    "1": DEFAULT_TASK,
+    [UUID]: DEFAULT_TASK,
   });
 });
 
@@ -132,15 +140,17 @@ test("can reorder tasks", () => {
     description: "Doin things",
     id: 2,
     orderId: 2,
+    uuid: EXTRA_UUIDS[0],
   };
   const task3 = {
     ...DEFAULT_TASK,
     description: "Things for doin",
     id: 3,
     orderId: 3,
+    uuid: EXTRA_UUIDS[1],
   };
   const state = {
-    "1": DEFAULT_TASK,
+    [UUID]: DEFAULT_TASK,
     "2": task2,
     "3": task3,
   };
@@ -150,17 +160,17 @@ test("can reorder tasks", () => {
       type: REORDER_TASKS,
       reorderedTasks: [
         {
-          id: 3,
+          uuid: EXTRA_UUIDS[1],
           orderId: 2,
         },
         {
-          id: 2,
+          uuid: EXTRA_UUIDS[0],
           orderId: 3,
         },
       ],
     })
   ).toStrictEqual({
-    "1": DEFAULT_TASK,
+    [UUID]: DEFAULT_TASK,
     "3": {
       ...task3,
       orderId: 2,

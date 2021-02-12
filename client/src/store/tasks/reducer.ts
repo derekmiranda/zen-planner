@@ -1,3 +1,4 @@
+import { createUuid } from "../../lib/utils";
 import {
   TasksActionTypes,
   TasksState,
@@ -10,16 +11,24 @@ import {
 
 function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
   switch (action.type) {
+    // TODO: start sync w/ server
     case ADD_TASK: {
+      const newUuid = createUuid();
+      Object.assign(action.task, {
+        uuid: newUuid,
+        focused: false,
+        // TODO: refine orderId determination
+        orderId: Object.keys(state).length + 1,
+      });
       return {
         ...state,
-        [action.task.id]: action.task,
+        [newUuid]: action.task,
       };
     }
     case REMOVE_TASK: {
       const newState = {} as TasksState;
       Object.keys(state).forEach((key) => {
-        if (key !== "" + action.taskId) {
+        if (key !== action.uuid) {
           newState[key] = state[key];
         }
       });
@@ -28,7 +37,7 @@ function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
     case COMPLETE_TASK_TOGGLE: {
       const newState = {} as TasksState;
       Object.keys(state).forEach((key) => {
-        if (key === "" + action.taskId) {
+        if (key === action.uuid) {
           newState[key] = {
             ...state[key],
             completed: !state[key].completed,
@@ -42,7 +51,7 @@ function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
     case FOCUS_TASK_TOGGLE: {
       const newState = {} as TasksState;
       Object.keys(state).forEach((key) => {
-        if (key === "" + action.taskId) {
+        if (key === action.uuid) {
           newState[key] = {
             ...state[key],
             focused: !state[key].focused,
@@ -56,8 +65,8 @@ function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
     case REORDER_TASKS: {
       const newState = {} as TasksState;
       action.reorderedTasks.forEach((reorder) => {
-        newState[reorder.id] = {
-          ...state[reorder.id],
+        newState[reorder.uuid] = {
+          ...state[reorder.uuid],
           orderId: reorder.orderId,
         };
       });

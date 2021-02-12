@@ -1,7 +1,7 @@
-import { Task } from "../../types";
+import { Task, UnsyncedTask, NewTask } from "../../types";
 
 export interface TasksState {
-  [id: string]: Task;
+  [id: string]: Task | UnsyncedTask;
 }
 
 export const ADD_TASK = "ADD_TASK";
@@ -12,27 +12,27 @@ export const REORDER_TASKS = "REORDER_TASKS";
 
 export interface AddTaskAction {
   type: typeof ADD_TASK;
-  task: Task;
+  task: NewTask;
 }
 
 export interface RemoveTaskAction {
   type: typeof REMOVE_TASK;
-  taskId: number;
+  uuid: string;
 }
 
 export interface CompleteTaskToggleAction {
   type: typeof COMPLETE_TASK_TOGGLE;
-  taskId: number;
+  uuid: string;
 }
 
 export interface FocusTaskToggleAction {
   type: typeof FOCUS_TASK_TOGGLE;
-  taskId: number;
+  uuid: string;
 }
 
 export interface ReorderTasksAction {
   type: typeof REORDER_TASKS;
-  reorderedTasks: Pick<Task, "id" | "orderId">[];
+  reorderedTasks: Pick<Task | UnsyncedTask, "uuid" | "orderId">[];
 }
 
 export type TasksActionTypes =
