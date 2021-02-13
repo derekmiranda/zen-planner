@@ -15,12 +15,18 @@ export interface AppStateProps {
 
 export interface AppDispatchProps {
   onAddTask: (newTask: NewTask) => void;
+  onUpdateTaskDesc: (uuid: string, newDescription: string) => void;
   onToggleComplete: (uuid: string) => void;
 }
 
 type AppProps = AppStateProps & AppDispatchProps;
 
-const AppPresentation = ({ tasks, onAddTask, onToggleComplete }: AppProps) => {
+const AppPresentation = ({
+  tasks,
+  onAddTask,
+  onUpdateTaskDesc,
+  onToggleComplete,
+}: AppProps) => {
   const bigTasks: ReactNode[] = [];
   const otherTasks: ReactNode[] = [];
   Object.values(tasks).forEach((task, i) => {
@@ -28,7 +34,7 @@ const AppPresentation = ({ tasks, onAddTask, onToggleComplete }: AppProps) => {
       <TaskEl
         key={i}
         task={task}
-        onAddTask={onAddTask}
+        onUpdateTaskDesc={onUpdateTaskDesc}
         onToggleComplete={onToggleComplete}
       />
     );

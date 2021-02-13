@@ -1,7 +1,7 @@
 import { Task, UnsyncedTask, NewTask } from "../../types";
 
 export interface TasksState {
-  [id: string]: Task | UnsyncedTask;
+  [uuid: string]: Task | UnsyncedTask;
 }
 
 export const ADD_TASK = "ADD_TASK";
