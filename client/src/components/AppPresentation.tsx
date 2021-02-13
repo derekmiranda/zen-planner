@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { Task, TaskMap } from "../types";
-import EmptyTask from "./EmptyTask";
+import { NewTask, TaskMap } from "../types";
+import PlaceholderTask from "./PlaceholderTask";
 import TaskEl from "./TaskEl";
 
 const PLACEHOLDERS = [
@@ -14,18 +14,23 @@ export interface AppStateProps {
 }
 
 export interface AppDispatchProps {
-  onAddTask: (task: Task) => void;
-  onToggleComplete: (taskId: number) => void;
+  onAddTask: (newTask: NewTask) => void;
+  onToggleComplete: (uuid: string) => void;
 }
 
 type AppProps = AppStateProps & AppDispatchProps;
 
-const AppPresentation = ({ tasks, onToggleComplete }: AppProps) => {
+const AppPresentation = ({ tasks, onAddTask, onToggleComplete }: AppProps) => {
   const bigTasks: ReactNode[] = [];
   const otherTasks: ReactNode[] = [];
   Object.values(tasks).forEach((task, i) => {
     const taskEl = (
-      <TaskEl key={i} task={task} onToggleComplete={onToggleComplete} />
+      <TaskEl
+        key={i}
+        task={task}
+        onAddTask={onAddTask}
+        onToggleComplete={onToggleComplete}
+      />
     );
     if (task.isBig) {
       bigTasks.push(taskEl);
@@ -41,7 +46,12 @@ const AppPresentation = ({ tasks, onToggleComplete }: AppProps) => {
       const orderId = bigTasks.length + i;
       const placeholder = i === 0 ? PLACEHOLDERS[orderId] : "";
       bigTasks.push(
-        <EmptyTask key={orderId} orderId={orderId} placeholder={placeholder} />
+        <PlaceholderTask
+          key={orderId}
+          orderId={orderId}
+          placeholder={placeholder}
+          onAddTask={onAddTask}
+        />
       );
     }
   }
