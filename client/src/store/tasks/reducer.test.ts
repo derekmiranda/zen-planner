@@ -1,5 +1,6 @@
 import omit from "lodash/omit";
 import { createUuid } from "../../lib/utils";
+import { NewTask } from "../../types";
 import tasksReducer from "./reducer";
 import {
   ADD_TASK,
@@ -25,6 +26,14 @@ const DEFAULT_TASK = {
   taskDate: NOW,
   orderId: 1,
 };
+const NEW_TASK: NewTask = omit(
+  DEFAULT_TASK,
+  "id",
+  "completed",
+  "focused",
+  "uuid",
+  "orderId"
+);
 
 test("initial state", () => {
   expect(tasksReducer(undefined, {} as any)).toStrictEqual({});
@@ -36,12 +45,25 @@ test("can add a task", () => {
       {},
       {
         type: ADD_TASK,
-        task: omit(DEFAULT_TASK, "id", "focused", "uuid", "orderId"),
+        task: NEW_TASK,
       }
     )
   ).toStrictEqual({
     [UUID]: omit(DEFAULT_TASK, "id"),
   });
+});
+
+test("will not add empty tasks", () => {
+  const emptyTask = { ...NEW_TASK, description: "" };
+  expect(
+    tasksReducer(
+      {},
+      {
+        type: ADD_TASK,
+        task: emptyTask,
+      }
+    )
+  ).toStrictEqual({});
 });
 
 test("can remove a task", () => {

@@ -13,10 +13,13 @@ function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
   switch (action.type) {
     // TODO: start sync w/ server
     case ADD_TASK: {
+      if (!action.task.description) return state;
+
       const newUuid = createUuid();
       Object.assign(action.task, {
         uuid: newUuid,
         focused: false,
+        completed: false,
         // TODO: refine orderId determination
         orderId: Object.keys(state).length + 1,
       });
