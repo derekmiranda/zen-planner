@@ -8,6 +8,7 @@ import {
   COMPLETE_TASK_TOGGLE,
   FOCUS_TASK_TOGGLE,
   REORDER_TASKS,
+  UPDATE_TASK_DESC,
 } from "./types";
 
 jest.mock("../../lib/utils");
@@ -50,6 +51,41 @@ test("can add a task", () => {
     )
   ).toStrictEqual({
     [UUID]: omit(DEFAULT_TASK, "id"),
+  });
+});
+
+test("can update a task", () => {
+  const newDescription = "Task test";
+  expect(
+    tasksReducer(
+      {
+        [UUID]: DEFAULT_TASK,
+      },
+      {
+        type: UPDATE_TASK_DESC,
+        uuid: UUID,
+        newDescription,
+      }
+    )
+  ).toStrictEqual({
+    [UUID]: { ...DEFAULT_TASK, description: newDescription },
+  });
+});
+
+test("will not update a task", () => {
+  expect(
+    tasksReducer(
+      {
+        [UUID]: DEFAULT_TASK,
+      },
+      {
+        type: UPDATE_TASK_DESC,
+        uuid: UUID,
+        newDescription: "",
+      }
+    )
+  ).toStrictEqual({
+    [UUID]: DEFAULT_TASK,
   });
 });
 

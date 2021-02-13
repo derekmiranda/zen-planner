@@ -7,6 +7,7 @@ import {
   COMPLETE_TASK_TOGGLE,
   FOCUS_TASK_TOGGLE,
   REORDER_TASKS,
+  UPDATE_TASK_DESC,
 } from "./types";
 
 function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
@@ -28,39 +29,55 @@ function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
         [newUuid]: action.task,
       };
     }
+    case UPDATE_TASK_DESC: {
+      if (!action.newDescription) return state;
+
+      const newState = {} as TasksState;
+      Object.keys(state).forEach((uuid) => {
+        if (uuid === action.uuid) {
+          newState[uuid] = {
+            ...state[uuid],
+            description: action.newDescription,
+          };
+        } else {
+          newState[uuid] = state[uuid];
+        }
+      });
+      return newState;
+    }
     case REMOVE_TASK: {
       const newState = {} as TasksState;
-      Object.keys(state).forEach((key) => {
-        if (key !== action.uuid) {
-          newState[key] = state[key];
+      Object.keys(state).forEach((uuid) => {
+        if (uuid !== action.uuid) {
+          newState[uuid] = state[uuid];
         }
       });
       return newState;
     }
     case COMPLETE_TASK_TOGGLE: {
       const newState = {} as TasksState;
-      Object.keys(state).forEach((key) => {
-        if (key === action.uuid) {
-          newState[key] = {
-            ...state[key],
-            completed: !state[key].completed,
+      Object.keys(state).forEach((uuid) => {
+        if (uuid === action.uuid) {
+          newState[uuid] = {
+            ...state[uuid],
+            completed: !state[uuid].completed,
           };
         } else {
-          newState[key] = state[key];
+          newState[uuid] = state[uuid];
         }
       });
       return newState;
     }
     case FOCUS_TASK_TOGGLE: {
       const newState = {} as TasksState;
-      Object.keys(state).forEach((key) => {
-        if (key === action.uuid) {
-          newState[key] = {
-            ...state[key],
-            focused: !state[key].focused,
+      Object.keys(state).forEach((uuid) => {
+        if (uuid === action.uuid) {
+          newState[uuid] = {
+            ...state[uuid],
+            focused: !state[uuid].focused,
           };
         } else {
-          newState[key] = state[key];
+          newState[uuid] = state[uuid];
         }
       });
       return newState;
@@ -73,9 +90,9 @@ function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
           orderId: reorder.orderId,
         };
       });
-      Object.keys(state).forEach((key) => {
-        if (!newState[key]) {
-          newState[key] = state[key];
+      Object.keys(state).forEach((uuid) => {
+        if (!newState[uuid]) {
+          newState[uuid] = state[uuid];
         }
       });
       return newState;
