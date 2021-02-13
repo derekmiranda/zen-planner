@@ -1,4 +1,5 @@
 import { createUuid } from "../../lib/utils";
+import { UnsyncedTask } from "../../types";
 import {
   TasksActionTypes,
   TasksState,
@@ -10,7 +11,10 @@ import {
   UPDATE_TASK_DESC,
 } from "./types";
 
-function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
+function tasksReducer(
+  state: TasksState = {},
+  action: TasksActionTypes
+): TasksState {
   switch (action.type) {
     // TODO: start sync w/ server
     case ADD_TASK: {
@@ -26,7 +30,7 @@ function tasksReducer(state: TasksState = {}, action: TasksActionTypes) {
       });
       return {
         ...state,
-        [newUuid]: action.task,
+        [newUuid]: action.task as UnsyncedTask,
       };
     }
     case UPDATE_TASK_DESC: {
