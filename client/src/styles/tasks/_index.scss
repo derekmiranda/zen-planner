@@ -9,6 +9,9 @@
   }
 
   &__description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+
     &--placeholder {
       color: $grey2;
     }
