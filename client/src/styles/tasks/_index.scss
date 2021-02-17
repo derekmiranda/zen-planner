@@ -12,6 +12,10 @@
     &--placeholder {
       color: $grey2;
     }
+
+    &--focused {
+      background-color: $focused;
+    }
   }
 
   &__completion-indicator {
@@ -23,5 +27,14 @@
   &__container {
     background-color: $grey1;
     display: flex;
+    user-select: none;
+  }
+
+  &__btn {
+    cursor: pointer;
+
+    &:hover {
+      color: $grey2;
+    }
   }
 }
