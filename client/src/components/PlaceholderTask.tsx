@@ -18,9 +18,9 @@ function PlaceholderTask({ placeholder, onAddTask }: PlaceholderTaskProps) {
 
   return (
     <TaskSkeleton
-      onToggleComplete={() => {}}
       description={""}
       completed={false}
+      focused={false}
       onUpdateDescription={onUpdateDescription}
       placeholder={placeholder}
       hasModifyModule={false}

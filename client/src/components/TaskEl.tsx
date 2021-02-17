@@ -10,13 +10,20 @@ export interface TaskStateProps {
 export interface TaskDispatchProps {
   onUpdateTaskDesc: (uuid: string, newDescription: string) => void;
   onToggleComplete: (uuid: string) => void;
+  onToggleFocus: (uuid: string) => void;
 }
 
 type TaskProps = TaskStateProps & TaskDispatchProps;
 
-function TaskEl({ task, onUpdateTaskDesc, onToggleComplete }: TaskProps) {
-  const { description, completed, uuid } = task;
+function TaskEl({
+  task,
+  onUpdateTaskDesc,
+  onToggleComplete,
+  onToggleFocus,
+}: TaskProps) {
+  const { description, completed, focused, uuid } = task;
   const toggleCompleteHandler = () => onToggleComplete(uuid);
+  const toggleFocusHandler = () => onToggleFocus(uuid);
   const updateTaskHandler = (newDescription: string) => {
     onUpdateTaskDesc(uuid, newDescription);
   };
@@ -25,7 +32,9 @@ function TaskEl({ task, onUpdateTaskDesc, onToggleComplete }: TaskProps) {
     <TaskSkeleton
       description={description}
       completed={completed}
+      focused={focused}
       onToggleComplete={toggleCompleteHandler}
+      onToggleFocus={toggleFocusHandler}
       onUpdateDescription={updateTaskHandler}
     />
   );

@@ -1,25 +1,32 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { noOp } from "../lib/__mocks__/utils";
 
 export interface TaskSkeletonStateProps {
   description: string;
   completed: boolean;
+  focused: boolean;
   placeholder?: string;
   hasModifyModule?: boolean;
 }
 
 export interface TaskSkeletonDispatchProps {
   onUpdateDescription: (description: string) => void;
-  onToggleComplete: () => void;
+  onToggleComplete?: () => void;
+  onToggleFocus?: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
 type TaskSkeletonProps = TaskSkeletonStateProps & TaskSkeletonDispatchProps;
 
 function Description({
   description,
+  focused,
   onClick,
   placeholder,
 }: {
   description: string;
+  focused: boolean;
   onClick: () => void;
   placeholder?: string | undefined;
 }) {
@@ -27,6 +34,8 @@ function Description({
   const isPlaceholder = placeholder !== undefined;
   if (isPlaceholder) {
     descriptionClass += " task__description--placeholder";
+  } else if (focused) {
+    descriptionClass += " task__description--focused";
   }
   return (
     <div className={descriptionClass} onClick={onClick}>
@@ -68,8 +77,11 @@ function TaskSkeleton({
   description,
   completed,
   placeholder,
-  onUpdateDescription,
-  onToggleComplete,
+  focused,
+  onUpdateDescription = noOp,
+  onToggleComplete = noOp,
+  onToggleFocus = noOp,
+  onDelete = noOp,
   hasModifyModule = true,
 }: TaskSkeletonProps) {
   const toggleCompleteHandler = () => onToggleComplete();
@@ -100,6 +112,7 @@ function TaskSkeleton({
         />
       ) : (
         <Description
+          focused={focused}
           description={description}
           placeholder={placeholder}
           onClick={startEditing}
@@ -107,11 +120,15 @@ function TaskSkeleton({
       )}
       {hasModifyModule && (
         <div className="modify__container">
-          <div className="modify__btn">Focus</div>
+          <div className="modify__btn" onClick={onToggleFocus}>
+            Focus
+          </div>
           {"|"}
           <div className="modify__btn">Edit</div>
           {"|"}
-          <div className="modify__btn">Delete</div>
+          <div className="modify__btn" onClick={onDelete}>
+            Delete
+          </div>
         </div>
       )}
     </div>
