@@ -14,7 +14,7 @@ export interface TaskSkeletonDispatchProps {
   onToggleComplete?: () => void;
   onToggleFocus?: () => void;
   onEdit?: () => void;
-  onDelete?: () => void;
+  onRemoveTask?: () => void;
 }
 
 type TaskSkeletonProps = TaskSkeletonStateProps & TaskSkeletonDispatchProps;
@@ -81,7 +81,7 @@ function TaskSkeleton({
   onUpdateDescription = noOp,
   onToggleComplete = noOp,
   onToggleFocus = noOp,
-  onDelete = noOp,
+  onRemoveTask = noOp,
   hasModifyModule = true,
 }: TaskSkeletonProps) {
   const toggleCompleteHandler = () => onToggleComplete();
@@ -126,7 +126,7 @@ function TaskSkeleton({
           {"|"}
           <div className="modify__btn">Edit</div>
           {"|"}
-          <div className="modify__btn" onClick={onDelete}>
+          <div className="modify__btn" onClick={onRemoveTask}>
             Delete
           </div>
         </div>

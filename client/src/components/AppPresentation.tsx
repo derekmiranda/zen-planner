@@ -18,6 +18,7 @@ export interface AppDispatchProps {
   onUpdateTaskDesc: (uuid: string, newDescription: string) => void;
   onToggleComplete: (uuid: string) => void;
   onToggleFocus: (uuid: string) => void;
+  onRemoveTask: (uuid: string) => void;
 }
 
 type AppProps = AppStateProps & AppDispatchProps;
@@ -28,6 +29,7 @@ const AppPresentation = ({
   onUpdateTaskDesc,
   onToggleComplete,
   onToggleFocus,
+  onRemoveTask,
 }: AppProps) => {
   const bigTasks: ReactNode[] = [];
   const otherTasks: ReactNode[] = [];
@@ -39,6 +41,7 @@ const AppPresentation = ({
         onUpdateTaskDesc={onUpdateTaskDesc}
         onToggleComplete={onToggleComplete}
         onToggleFocus={onToggleFocus}
+        onRemoveTask={onRemoveTask}
       />
     );
     if (task.isBig) {
