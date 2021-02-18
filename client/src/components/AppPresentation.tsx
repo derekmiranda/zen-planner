@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
+import TaskContainer from "../containers/TaskContainer";
 import { NewTask, TaskMap } from "../types";
 import PlaceholderTask from "./PlaceholderTask";
-import TaskEl from "./TaskEl";
 
 const PLACEHOLDERS = [
   "Add a big task to finish today",
@@ -15,10 +15,6 @@ export interface AppStateProps {
 
 export interface AppDispatchProps {
   onAddTask: (newTask: NewTask) => void;
-  onUpdateTaskDesc: (uuid: string, newDescription: string) => void;
-  onToggleComplete: (uuid: string) => void;
-  onToggleFocus: (uuid: string) => void;
-  onRemoveTask: (uuid: string) => void;
 }
 
 type AppProps = AppStateProps & AppDispatchProps;
@@ -26,22 +22,14 @@ type AppProps = AppStateProps & AppDispatchProps;
 const AppPresentation = ({
   tasks,
   onAddTask,
-  onUpdateTaskDesc,
-  onToggleComplete,
-  onToggleFocus,
-  onRemoveTask,
 }: AppProps) => {
   const bigTasks: ReactNode[] = [];
   const otherTasks: ReactNode[] = [];
   Object.values(tasks).forEach((task, i) => {
     const taskEl = (
-      <TaskEl
+      <TaskContainer
         key={i}
         task={task}
-        onUpdateTaskDesc={onUpdateTaskDesc}
-        onToggleComplete={onToggleComplete}
-        onToggleFocus={onToggleFocus}
-        onRemoveTask={onRemoveTask}
       />
     );
     if (task.isBig) {

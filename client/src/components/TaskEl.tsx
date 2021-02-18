@@ -3,8 +3,6 @@ import TaskSkeleton from "./TaskSkeleton";
 
 export interface TaskStateProps {
   task: Task | UnsyncedTask;
-  placeholder?: string | undefined;
-  hideModifyModule?: boolean;
 }
 
 export interface TaskDispatchProps {
