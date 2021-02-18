@@ -1,0 +1,43 @@
+.task {
+  &__container {
+    display: flex;
+  }
+
+  &__description,
+  &__description-input {
+    width: 300px;
+  }
+
+  &__description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    &--placeholder {
+      color: $grey2;
+    }
+
+    &--focused {
+      background-color: $focused;
+    }
+  }
+
+  &__completion-indicator {
+    user-select: none;
+  }
+}
+
+.modify {
+  &__container {
+    background-color: $grey1;
+    display: flex;
+    user-select: none;
+  }
+
+  &__btn {
+    cursor: pointer;
+
+    &:hover {
+      color: $grey2;
+    }
+  }
+}
