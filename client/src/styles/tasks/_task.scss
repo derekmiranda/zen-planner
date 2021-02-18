@@ -20,17 +20,12 @@
       background-color: $focused;
     }
   }
-
-  &__completion-indicator {
-    user-select: none;
-  }
 }
 
 .modify {
   &__container {
     background-color: $grey1;
     display: flex;
-    user-select: none;
   }
 
   &__btn {

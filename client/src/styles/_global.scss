@@ -3,6 +3,7 @@
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
+  user-select: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
