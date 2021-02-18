@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 
 import store from "./store";
 import "./styles/index.scss";
-import App from "./App.tsx";
+import App from "./containers/App.tsx";
 import reportWebVitals from "./reportWebVitals";
 import runMockServer from "./lib/mock-server";
 

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import AppPresentation from "./components/AppPresentation";
+import AppPresentation from "../components/AppPresentation";
 import {
   AddTaskAction,
   ADD_TASK,
@@ -12,8 +12,8 @@ import {
   REMOVE_TASK,
   UpdateTaskDescAction,
   UPDATE_TASK_DESC,
-} from "./store/tasks/types";
-import { AppState, Task } from "./types";
+} from "../store/tasks/types";
+import { AppState, Task } from "../types";
 
 const mapStateToProps = ({ tasks }: AppState) => ({
   tasks,
