@@ -63,6 +63,7 @@ const AppPresentation = ({
       <h1 className="app__header">Zen Planner</h1>
       <h2 className="tasks__big-tasks-header">Daily Big 3</h2>
       {bigTasks}
+      <div className="add-other-tasks">+Add other tasks</div>
       {hasOtherTasks && (
         <>
           <h3 className="tasks__other-tasks-header">Other Tasks</h3>
