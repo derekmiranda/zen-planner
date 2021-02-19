@@ -44,14 +44,16 @@ function Description({
   );
 }
 
-function DescriptionInput({
+export function DescriptionInput({
   description,
   onChange,
   onComplete,
+  onCancel,
 }: {
   description: string;
   onChange: (text: string) => void;
   onComplete: () => void;
+  onCancel: () => void;
 }) {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
@@ -62,14 +64,19 @@ function DescriptionInput({
     }
   };
   return (
-    <input
-      autoFocus
-      className="task__description-input"
-      value={description}
-      onChange={handleChange}
-      onBlur={onComplete}
-      onKeyDown={handleSubmit}
-    />
+    <div className="task__input-container">
+      <input
+        autoFocus
+        className="task__description-input"
+        value={description}
+        onChange={handleChange}
+        onBlur={onCancel}
+        onKeyDown={handleSubmit}
+      />
+      <button className="task__description-save" onClick={onComplete}>
+        Save
+      </button>
+    </div>
   );
 }
 
@@ -90,7 +97,8 @@ function TaskSkeleton({
   const [localDescription, updateLocalDescription] = useState(description);
 
   const startEditing = () => updateEditingDescription(true);
-  const stopEditing = () => {
+  const stopEditing = () => updateEditingDescription(false);
+  const onSubmitBigTask = () => {
     updateEditingDescription(false);
     onUpdateDescription(localDescription);
   };
@@ -108,7 +116,8 @@ function TaskSkeleton({
         <DescriptionInput
           description={localDescription}
           onChange={updateLocalDescription}
-          onComplete={stopEditing}
+          onComplete={onSubmitBigTask}
+          onCancel={stopEditing}
         />
       ) : (
         <Description
