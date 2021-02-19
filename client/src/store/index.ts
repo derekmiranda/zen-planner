@@ -6,7 +6,7 @@ const preloadedState = {
   tasks: {},
 };
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
   tasks,
 });
 

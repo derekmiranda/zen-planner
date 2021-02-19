@@ -1,4 +1,7 @@
+import { configureStore } from "@reduxjs/toolkit";
 import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { reducer } from '../store'
 import { TaskMap } from "../types";
 import AppPresentation from "./AppPresentation";
 
@@ -11,6 +14,7 @@ const defaultProps = {
 const otherTasks: TaskMap = {
   "1": {
     id: 1,
+    uuid: '1',
     taskDate: Date.now(),
     description: "Other task",
     completed: false,
@@ -45,7 +49,19 @@ test("doesn't render Other Tasks header if no other tasks present", () => {
 });
 
 test("renders Other Tasks header if other tasks present", () => {
-  render(<AppPresentation {...defaultProps} tasks={otherTasks} />);
+  const store = configureStore({
+    reducer,
+    preloadedState: {
+      tasks: otherTasks
+    }
+  })
+
+  render(
+    <Provider store={store}>
+      <AppPresentation {...defaultProps} tasks={otherTasks} />
+    </Provider>
+  );
+
   const linkElement = screen.getByText("Other Tasks");
   expect(linkElement).toBeInTheDocument();
 });
