@@ -58,9 +58,11 @@ export function DescriptionInput({
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   };
-  const handleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeys = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       onComplete();
+    } else if (event.key === "Escape") {
+      onCancel();
     }
   };
   return (
@@ -71,7 +73,7 @@ export function DescriptionInput({
         value={description}
         onChange={handleChange}
         onBlur={onCancel}
-        onKeyDown={handleSubmit}
+        onKeyDown={handleKeys}
       />
       <button className="task__description-save" onClick={onComplete}>
         Save
