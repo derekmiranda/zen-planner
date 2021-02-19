@@ -1,4 +1,4 @@
-import { NewTask } from "../types";
+import { NewTask } from "../../types";
 import TaskSkeleton from "./TaskSkeleton";
 
 interface PlaceholderTaskProps {

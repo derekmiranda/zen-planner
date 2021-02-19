@@ -1,7 +1,7 @@
 
 import { connect } from "react-redux";
 
-import TaskEl from '../components/TaskEl'
+import TaskEl from '../components/tasks/TaskEl'
 import {
   CompleteTaskToggleAction,
   COMPLETE_TASK_TOGGLE,

@@ -1,5 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
-import { noOp } from "../lib/__mocks__/utils";
+import { noOp } from "../../lib/utils";
 
 export interface TaskSkeletonStateProps {
   description: string;

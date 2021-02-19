@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import TaskContainer from "../containers/TaskContainer";
 import { NewTask, TaskMap } from "../types";
-import PlaceholderTask from "./PlaceholderTask";
+import PlaceholderTask from "./tasks/PlaceholderTask";
 
 const PLACEHOLDERS = [
   "Add a big task to finish today",
