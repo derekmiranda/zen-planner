@@ -75,7 +75,7 @@ export function DescriptionInput({
         onBlur={onCancel}
         onKeyDown={handleKeys}
       />
-      <button className="task__description-save" onClick={onComplete}>
+      <button className="task__description-save" onMouseDown={onComplete}>
         Save
       </button>
     </div>
@@ -100,7 +100,7 @@ function TaskSkeleton({
 
   const startEditing = () => updateEditingDescription(true);
   const stopEditing = () => {
-    updateLocalDescription("");
+    updateLocalDescription(description);
     updateEditingDescription(false);
   };
   const onSubmitBigTask = () => {
