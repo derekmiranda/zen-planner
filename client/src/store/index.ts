@@ -10,7 +10,7 @@ const reducer = combineReducers({
   tasks,
 });
 
-const store = configureStore<{}>({
+const store = configureStore({
   reducer,
   devTools: process.env.NODE_ENV !== "production",
   preloadedState,
