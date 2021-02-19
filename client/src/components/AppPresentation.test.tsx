@@ -65,3 +65,27 @@ test("renders Other Tasks header if other tasks present", () => {
   const linkElement = screen.getByText("Other Tasks");
   expect(linkElement).toBeInTheDocument();
 });
+
+test("has '+Add other tasks' button", () => {
+  render(<AppPresentation {...defaultProps} />);
+  const addOtherTasks = screen.getByText("+Add other tasks");
+  expect(addOtherTasks).toBeInTheDocument();
+});
+
+test("Non-big task input doesn't exist on initial page state", () => {
+  render(<AppPresentation {...defaultProps} />);
+  const otherTaskInputExists = screen.queryByRole('textbox');
+  expect(otherTaskInputExists).toBeNull()
+});
+
+test("clicking '+Add other tasks' opens input to add non-big task", () => {
+  render(<AppPresentation {...defaultProps} />);
+
+  // click on '+Add other tasks'
+  const addOtherTasks = screen.getByText("+Add other tasks");
+  addOtherTasks.click()
+
+  // now check if other task input present
+  const otherTaskInput = screen.getByRole('textbox');
+  expect(otherTaskInput).toBeInTheDocument()
+});
