@@ -10,6 +10,7 @@ export const REMOVE_TASK = "REMOVE_TASK";
 export const COMPLETE_TASK_TOGGLE = "COMPLETE_TASK_TOGGLE";
 export const FOCUS_TASK_TOGGLE = "FOCUS_TASK_TOGGLE";
 export const REORDER_TASKS = "REORDER_TASKS";
+export const LOADED_TASKS = "LOADED_TASKS";
 
 export interface AddTaskAction {
   type: typeof ADD_TASK;
@@ -40,6 +41,11 @@ export interface FocusTaskToggleAction {
 export interface ReorderTasksAction {
   type: typeof REORDER_TASKS;
   reorderedTasks: Pick<Task | UnsyncedTask, "uuid" | "orderId">[];
+}
+
+export interface LoadedTasksAction {
+  type: typeof LOADED_TASKS;
+  loadedTasks: Omit<Task, "uuid">[];
 }
 
 export type TasksActionTypes =
