@@ -12,6 +12,7 @@ export interface Task {
 }
 
 // task that's added in client but not yet synced with server
+export type ServerTask = Omit<Task, "uuid">;
 export type UnsyncedTask = Omit<Task, "id">;
 export type NewTask = Omit<
   Task,
