@@ -1,7 +1,18 @@
+// @ts-nocheck
 import { Server, Model, hasMany, belongsTo } from "miragejs";
+import { ServerTask } from "../types";
 
 export const USER_ID = 1;
-export const MOCK_TASKS = [{ description: "Visit bank" }];
+export const MOCK_TASKS: Omit<ServerTask, "id">[] = [
+  {
+    description: "Visit bank",
+    isBig: true,
+    orderId: 0,
+    taskDate: Date.now(),
+    completed: false,
+    focused: false,
+  },
+];
 
 export default function runMockServer() {
   new Server({
