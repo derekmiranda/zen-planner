@@ -5,9 +5,25 @@ import { ServerTask } from "../types";
 export const USER_ID = 1;
 export const MOCK_TASKS: Omit<ServerTask, "id">[] = [
   {
-    description: "Visit bank",
+    description: "Be productive",
     isBig: true,
     orderId: 0,
+    taskDate: Date.now(),
+    completed: false,
+    focused: false,
+  },
+  {
+    description: "Never rest",
+    isBig: true,
+    orderId: 1,
+    taskDate: Date.now(),
+    completed: false,
+    focused: false,
+  },
+  {
+    description: "Submit to capitalism",
+    isBig: true,
+    orderId: 2,
     taskDate: Date.now(),
     completed: false,
     focused: false,
