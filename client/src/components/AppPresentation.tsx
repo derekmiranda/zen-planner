@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import TaskContainer from "../containers/TaskContainer";
 import { NewTask, TaskMap } from "../types";
 import PlaceholderTask from "./tasks/PlaceholderTask";
@@ -9,6 +9,7 @@ const PLACEHOLDERS = [
   "Add a second big task",
   "Add a third big task",
 ];
+const TEST_USER_ID = 1;
 
 export interface AppStateProps {
   tasks: TaskMap;
@@ -16,13 +17,19 @@ export interface AppStateProps {
 
 export interface AppDispatchProps {
   onAddTask: (newTask: NewTask) => void;
+  onLoadTasks: (userId: number) => void;
 }
 
 type AppProps = AppStateProps & AppDispatchProps;
 
-const AppPresentation = ({ tasks, onAddTask }: AppProps) => {
+const AppPresentation = ({ tasks, onAddTask, onLoadTasks }: AppProps) => {
+  console.log("onLoadTasks", onLoadTasks);
   const [addingOtherTask, setAddOtherTask] = useState(false);
   const [newTaskDesc, updateNewTaskDesc] = useState("");
+
+  useEffect(() => {
+    onLoadTasks(TEST_USER_ID);
+  }, [onLoadTasks]);
 
   const bigTasks: ReactNode[] = [];
   const otherTasks: ReactNode[] = [];

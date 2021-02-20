@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
 import AppPresentation from "../components/AppPresentation";
+import { createLoadTasksThunk } from "../store/tasks/thunks";
 import { AddTaskAction, ADD_TASK } from "../store/tasks/types";
 import { AppState, Task } from "../types";
 
@@ -17,6 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         task,
       });
     },
+    onLoadTasks: createLoadTasksThunk(dispatch),
   };
 };
 

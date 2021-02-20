@@ -1,5 +1,5 @@
 import { createUuid } from "../../lib/utils";
-import { UnsyncedTask } from "../../types";
+import { ServerTask, Task, UnsyncedTask } from "../../types";
 import {
   TasksActionTypes,
   TasksState,
@@ -9,6 +9,7 @@ import {
   FOCUS_TASK_TOGGLE,
   REORDER_TASKS,
   UPDATE_TASK_DESC,
+  LOADED_TASKS,
 } from "./types";
 
 function tasksReducer(
@@ -16,7 +17,16 @@ function tasksReducer(
   action: TasksActionTypes
 ): TasksState {
   switch (action.type) {
-    // TODO: start sync w/ server
+    case LOADED_TASKS: {
+      const newState = { ...state };
+      action.loadedTasks.forEach((task: ServerTask) => {
+        const uuid = createUuid();
+        // TODO: refactor
+        (task as Task).uuid = uuid;
+        newState[uuid] = task as Task;
+      });
+      return newState;
+    }
     case ADD_TASK: {
       if (!action.task.description) return state;
 
