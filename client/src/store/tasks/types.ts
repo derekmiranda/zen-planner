@@ -54,4 +54,5 @@ export type TasksActionTypes =
   | RemoveTaskAction
   | CompleteTaskToggleAction
   | FocusTaskToggleAction
-  | ReorderTasksAction;
+  | ReorderTasksAction
+  | LoadedTasksAction;
