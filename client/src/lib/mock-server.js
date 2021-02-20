@@ -1,5 +1,8 @@
 import { Server, Model, hasMany, belongsTo } from "miragejs";
 
+export const USER_ID = 1;
+export const MOCK_TASKS = [{ description: "Visit bank" }];
+
 export default function runMockServer() {
   new Server({
     urlPrefix: process.env.REACT_APP_API_URL,
@@ -20,7 +23,10 @@ export default function runMockServer() {
         username: "smithjohn",
         email: "smithjohn@gmail.com",
       });
-      server.create("task", { user, description: "Visit bank" });
+
+      MOCK_TASKS.forEach((task) => {
+        server.create("task", { user, ...task });
+      });
     },
 
     routes() {
