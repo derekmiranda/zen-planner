@@ -1,20 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { reducer } from '../store'
+import { reducer } from "../store";
 import { TaskMap } from "../types";
 import AppPresentation from "./AppPresentation";
 
 const defaultProps = {
   tasks: {},
   onAddTask: () => {},
+  onLoadTasks: () => {},
   onToggleComplete: () => {},
 };
 
 const otherTasks: TaskMap = {
   "1": {
     id: 1,
-    uuid: '1',
+    uuid: "1",
     taskDate: Date.now(),
     description: "Other task",
     completed: false,
@@ -52,9 +53,9 @@ test("renders Other Tasks header if other tasks present", () => {
   const store = configureStore({
     reducer,
     preloadedState: {
-      tasks: otherTasks
-    }
-  })
+      tasks: otherTasks,
+    },
+  });
 
   render(
     <Provider store={store}>
@@ -74,8 +75,8 @@ test("has '+Add other tasks' button", () => {
 
 test("Non-big task input doesn't exist on initial page state", () => {
   render(<AppPresentation {...defaultProps} />);
-  const otherTaskInputExists = screen.queryByRole('textbox');
-  expect(otherTaskInputExists).toBeNull()
+  const otherTaskInputExists = screen.queryByRole("textbox");
+  expect(otherTaskInputExists).toBeNull();
 });
 
 test("clicking '+Add other tasks' opens input to add non-big task", () => {
@@ -83,9 +84,9 @@ test("clicking '+Add other tasks' opens input to add non-big task", () => {
 
   // click on '+Add other tasks'
   const addOtherTasks = screen.getByText("+Add other tasks");
-  addOtherTasks.click()
+  addOtherTasks.click();
 
   // now check if other task input present
-  const otherTaskInput = screen.getByRole('textbox');
-  expect(otherTaskInput).toBeInTheDocument()
+  const otherTaskInput = screen.getByRole("textbox");
+  expect(otherTaskInput).toBeInTheDocument();
 });
