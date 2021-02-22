@@ -45,7 +45,7 @@ export interface ReorderTasksAction {
 
 export interface LoadedTasksAction {
   type: typeof LOADED_TASKS;
-  loadedTasks: Omit<Task, "uuid">[];
+  loadedTasks: Task[];
 }
 
 export type TasksActionTypes =
