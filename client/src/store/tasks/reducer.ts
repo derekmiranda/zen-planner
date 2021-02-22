@@ -1,5 +1,4 @@
-import { createUuid } from "../../lib/utils";
-import { ServerTask, Task, UnsyncedTask } from "../../types";
+import { Task, UnsyncedTask } from "../../types";
 import {
   TasksActionTypes,
   TasksState,
@@ -19,20 +18,16 @@ function tasksReducer(
   switch (action.type) {
     case LOADED_TASKS: {
       const newState = { ...state };
-      action.loadedTasks.forEach((task: ServerTask) => {
-        const uuid = createUuid();
-        // TODO: refactor
-        (task as Task).uuid = uuid;
-        newState[uuid] = task as Task;
+      action.loadedTasks.forEach((task: Task) => {
+        newState[task.uuid] = task;
       });
       return newState;
     }
     case ADD_TASK: {
       if (!action.task.description) return state;
 
-      const newUuid = createUuid();
       Object.assign(action.task, {
-        uuid: newUuid,
+        uuid: action.task.uuid,
         focused: false,
         completed: false,
         // TODO: refine orderId determination
@@ -40,7 +35,7 @@ function tasksReducer(
       });
       return {
         ...state,
-        [newUuid]: action.task as UnsyncedTask,
+        [action.task.uuid]: action.task as UnsyncedTask,
       };
     }
     case UPDATE_TASK_DESC: {
