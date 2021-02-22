@@ -98,7 +98,10 @@ function TaskSkeleton({
   const [editingDescription, updateEditingDescription] = useState(false);
   const [localDescription, updateLocalDescription] = useState(description);
 
-  const startEditing = () => updateEditingDescription(true);
+  const startEditing = () => {
+    updateLocalDescription(description);
+    updateEditingDescription(true);
+  };
   const stopEditing = () => {
     updateLocalDescription(description);
     updateEditingDescription(false);
