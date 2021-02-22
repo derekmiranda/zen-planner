@@ -23,7 +23,6 @@ export interface AppDispatchProps {
 type AppProps = AppStateProps & AppDispatchProps;
 
 const AppPresentation = ({ tasks, onAddTask, onLoadTasks }: AppProps) => {
-  console.log("onLoadTasks", onLoadTasks);
   const [addingOtherTask, setAddOtherTask] = useState(false);
   const [newTaskDesc, updateNewTaskDesc] = useState("");
 

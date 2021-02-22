@@ -1,4 +1,4 @@
-import { Task, UnsyncedTask, NewTask } from "../../types";
+import { Task, UnsyncedTask } from "../../types";
 
 export interface TasksState {
   [uuid: string]: Task | UnsyncedTask;
@@ -14,7 +14,7 @@ export const LOADED_TASKS = "LOADED_TASKS";
 
 export interface AddTaskAction {
   type: typeof ADD_TASK;
-  task: NewTask;
+  task: UnsyncedTask;
 }
 
 export interface UpdateTaskDescAction {

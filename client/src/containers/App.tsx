@@ -2,9 +2,11 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
 import AppPresentation from "../components/AppPresentation";
-import { createLoadTasksThunk } from "../store/tasks/thunks";
-import { AddTaskAction, ADD_TASK } from "../store/tasks/types";
-import { AppState, Task } from "../types";
+import {
+  createLoadTasksThunk,
+  createNewTaskThunk,
+} from "../store/tasks/thunks";
+import { AppState } from "../types";
 
 const mapStateToProps = ({ tasks }: AppState) => ({
   tasks,
@@ -12,12 +14,7 @@ const mapStateToProps = ({ tasks }: AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    onAddTask: (task: Task): AddTaskAction => {
-      return dispatch({
-        type: ADD_TASK,
-        task,
-      });
-    },
+    onAddTask: createNewTaskThunk(dispatch),
     onLoadTasks: createLoadTasksThunk(dispatch),
   };
 };
