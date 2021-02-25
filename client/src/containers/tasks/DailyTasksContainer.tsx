@@ -3,11 +3,11 @@ import { Dispatch } from "redux";
 
 import AppPresentation, {
   AppDispatchProps,
-} from "../components/DailyTasksPage";
+} from "../../components/DailyTasksPage";
 import {
   createLoadTasksThunk,
   createNewTaskThunk,
-} from "../store/tasks/thunks";
+} from "../../store/tasks/thunks";
 
 const mapStateToProps = ({ tasks }: RootStateOrAny) => ({
   tasks,

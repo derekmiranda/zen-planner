@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import TaskContainer from "../containers/TaskContainer";
+import TaskContainer from "../containers/tasks/TaskContainer";
 import { NewTask, TaskMap } from "../types";
 import PlaceholderTask from "./tasks/PlaceholderTask";
 import { DescriptionInput } from "./tasks/TaskSkeleton";
@@ -32,8 +32,8 @@ const AppPresentation = ({ tasks, onAddTask, onLoadTasks }: AppProps) => {
 
   const bigTasks: ReactNode[] = [];
   const otherTasks: ReactNode[] = [];
-  Object.values(tasks).forEach((task, i) => {
-    const taskEl = <TaskContainer key={i} task={task} />;
+  Object.values(tasks).forEach((task) => {
+    const taskEl = <TaskContainer key={task.uuid} task={task} />;
     if (task.isBig) {
       bigTasks.push(taskEl);
     } else {
