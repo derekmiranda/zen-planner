@@ -1,14 +1,15 @@
-import { connect } from "react-redux";
+import { connect, RootStateOrAny } from "react-redux";
 import { Dispatch } from "redux";
 
-import AppPresentation from "../components/AppPresentation";
+import AppPresentation, {
+  AppDispatchProps,
+} from "../components/DailyTasksPage";
 import {
   createLoadTasksThunk,
   createNewTaskThunk,
 } from "../store/tasks/thunks";
-import { AppState } from "../types";
 
-const mapStateToProps = ({ tasks }: AppState) => ({
+const mapStateToProps = ({ tasks }: RootStateOrAny) => ({
   tasks,
 });
 
@@ -19,9 +20,13 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-const ConnectedApp = connect<{}, {}, typeof AppPresentation, AppState>(
+const DailyTasksContainer = connect<
+  ReturnType<typeof mapStateToProps>,
+  AppDispatchProps,
+  {}
+>(
   mapStateToProps,
   mapDispatchToProps
 )(AppPresentation);
 
-export default ConnectedApp;
+export default DailyTasksContainer;
