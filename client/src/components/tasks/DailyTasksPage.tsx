@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useState } from "react";
-import TaskContainer from "../containers/tasks/TaskContainer";
-import { NewTask, TaskMap } from "../types";
-import PlaceholderTask from "./tasks/PlaceholderTask";
-import { DescriptionInput } from "./tasks/TaskSkeleton";
+import TaskContainer from "../../containers/tasks/TaskContainer";
+import { NewTask, TaskMap } from "../../types";
+import PlaceholderTask from "../tasks/PlaceholderTask";
+import { DescriptionInput } from "../tasks/TaskSkeleton";
 
 const PLACEHOLDERS = [
   "Add a big task to finish today",

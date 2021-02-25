@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { reducer } from "../store";
-import { TaskMap } from "../types";
+import { reducer } from "../../store";
+import { TaskMap } from "../../types";
 import AppPresentation from "./DailyTasksPage";
 
 const defaultProps = {

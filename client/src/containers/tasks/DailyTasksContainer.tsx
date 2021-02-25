@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 
 import AppPresentation, {
   AppDispatchProps,
-} from "../../components/DailyTasksPage";
+} from "../../components/tasks/DailyTasksPage";
 import {
   createLoadTasksThunk,
   createNewTaskThunk,
