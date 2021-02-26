@@ -1,5 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
-import { noOp } from "../../lib/utils";
+import { noOp } from "@app/lib/utils";
 
 export interface TaskSkeletonStateProps {
   description: string;

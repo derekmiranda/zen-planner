@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
-import TaskEl from "../../components/tasks/TaskEl";
+import TaskEl from "@components/tasks/TaskEl";
 import {
   CompleteTaskToggleAction,
   COMPLETE_TASK_TOGGLE,
@@ -11,7 +11,7 @@ import {
   REMOVE_TASK,
   UpdateTaskDescAction,
   UPDATE_TASK_DESC,
-} from "../../store/tasks/types";
+} from "@app/store/tasks/types";
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {

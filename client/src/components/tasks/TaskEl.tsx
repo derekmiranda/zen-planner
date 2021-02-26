@@ -1,4 +1,4 @@
-import { Task, UnsyncedTask } from "../../types";
+import { Task, UnsyncedTask } from "@app/types";
 import TaskSkeleton from "./TaskSkeleton";
 
 export interface TaskStateProps {
